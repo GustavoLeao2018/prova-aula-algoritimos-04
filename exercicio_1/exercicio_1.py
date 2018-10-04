@@ -53,20 +53,24 @@ CORES_LISTA = [
 ]
 
 def tela():
-    tamanho = largura, altura = (400, 400)
+    tamanho = largura_tela, altura_tela = (400, 400)
 
     janela = display.set_mode(tamanho)
 
     init()
 
-    x = randint(0, largura)
-    y = randint(0, altura)
+    x = randint(0, largura_tela)
+    y = randint(0, altura_tela)
     raio = 5
     largura = 5
     cor = choice(CORES_LISTA)
 
 
-    while  True:
+    clock = time.Clock()
+
+    bol = bola.Bola(janela, x, y, cor, raio, largura)
+
+    while True:
         for evento  in event.get():
             if evento.type == QUIT:
                 exit()
@@ -74,12 +78,13 @@ def tela():
                 if evento.key == K_ESCAPE:
                     exit()
 
+        x = randint(0, largura_tela)
+        y = randint(0, altura_tela)
 
-
-        bol = bola.Bola(janela, x, y, cor, raio, largura)
-
+        bol.reescreve(x, y, bol)
 
         display.flip()
+        clock.tick(10)
 
 
 if  __name__ == '__main__':
