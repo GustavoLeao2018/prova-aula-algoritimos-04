@@ -4,8 +4,8 @@
 
 from pygame import *
 from sys import exit
-import bola
-from random import choice, randint
+import retangulo
+from random import randint, choice
 
 CORES_LISTA = [
     (255, 0, 0),
@@ -52,6 +52,7 @@ CORES_LISTA = [
 (255,165,0)
 ]
 
+
 def tela():
     tamanho = largura, altura = (400, 400)
 
@@ -59,11 +60,14 @@ def tela():
 
     init()
 
-    x = randint(0, largura)
-    y = randint(0, altura)
-    raio = 5
-    largura = 5
-    cor = choice(CORES_LISTA)
+    quantidade = 10
+    x = [randint(0, largura) for x in range(quantidade)]
+    y = [randint(0, altura) for x in range(quantidade)]
+
+    largura = [randint(10, 50) for x in range(quantidade)]
+    altura = [randint(10, 50) for x in range(quantidade)]
+
+    cores = [choice(CORES_LISTA) for x in range(quantidade)]
 
 
     while  True:
@@ -74,10 +78,16 @@ def tela():
                 if evento.key == K_ESCAPE:
                     exit()
 
+        retangulos = []
+        for cont in range(quantidade):
+            ret = retangulo.Retangulo(x[cont], y[cont], altura[cont], largura[cont], cores[cont], janela)
+            if cont != 0:
+                contador = cont - 1
+                if ret.colidiu(ret, retangulos[contador]) == True:
+                    while ret.colidiu(ret, retangulos[contador]) == True:
+                        ret = retangulo.Retangulo(x[cont], y[cont], altura[cont], largura[cont], cores[cont], janela)
 
-
-        bol = bola.Bola(janela, x, y, cor, raio, largura)
-
+            retangulos.append(ret)
 
         display.flip()
 

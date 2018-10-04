@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Classe bola."""
+"""Exercicio 1."""
+
+from pygame import *
 
 
 class Bola:
-    """Classe de bola."""
+    """Cria a classe ratangulo"""
+    def cria_bola(self):
+        return draw.circle(self.janela, self.cor, [self.x, self.y], self.raio, self.largura)
 
-    def __init__(self, centro, raio, cor):
-        """Atribuidos os valores de centro, raio, raiz e cor."""
-        self.centro = centro
+    def __init__(self, janela, x, y, cor, raio, largura):
+        """Cria o método construtor."""
+        self.x = x
+        self.y = y
+        self.largura = largura
         self.raio = raio
         self.cor = cor
+        self.janela = janela
+
+        self.cria_bola()
